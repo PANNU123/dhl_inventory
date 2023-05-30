@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UomController;
 
@@ -47,12 +47,27 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/active/{id}', [CategoryController::class, 'categoryActive'])->name('category.status.active');
         Route::get('/inactive/{id}', [CategoryController::class, 'categoryInactive'])->name('category.status.inactive');
     });
+
+    Route::group(['prefix' => 'sub-category' ],function (){
+        Route::get('', [SubCategoryController::class, 'subCategory'])->name('sub.category');
+        Route::get('/create', [SubCategoryController::class, 'subCategoryCreate'])->name('sub.category.create');
+        Route::post('/create', [SubCategoryController::class, 'subCategoryStore'])->name('sub.category.store');
+        Route::get('/edit/{id}', [SubCategoryController::class, 'subCategoryEdit'])->name('sub.category.edit');
+        Route::post('/update', [SubCategoryController::class, 'subCategoryUpdate'])->name('sub.category.update');
+        Route::get('/delete/{id}', [SubCategoryController::class, 'subCategoryDelete'])->name('sub.category.delete');
+        Route::get('/active/{id}', [SubCategoryController::class, 'subCategoryActive'])->name('sub.category.status.active');
+        Route::get('/inactive/{id}', [SubCategoryController::class, 'subCategoryInactive'])->name('sub.category.status.inactive');
+    });
+
+    
+
+
     Route::group(['prefix' => 'uom' ],function (){
         Route::get('', [UomController::class, 'uomIndex'])->name('uom');
         Route::get('/create', [UomController::class, 'uomCreate'])->name('uom.create');
         Route::post('/create', [UomController::class, 'uomStore'])->name('uom.store');
         Route::get('/edit/{id}', [UomController::class, 'uomEdit'])->name('uom.edit');
-        Route::post('/update', [UomController::class, 'uomUpdate'])->name('oum.update');
+        Route::post('/update', [UomController::class, 'uomUpdate'])->name('uom.update');
         Route::get('/delete/{id}', [UomController::class, 'uomDelete'])->name('uom.delete');
         Route::get('/active/{id}', [UomController::class, 'uomActive'])->name('uom.status.active');
         Route::get('/inactive/{id}', [UomController::class, 'uomInactive'])->name('uom.status.inactive');
@@ -60,12 +75,27 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
 
     Route::group(['prefix' => 'product' ],function (){
         Route::get('', [ProductController::class, 'product'])->name('product');
+        Route::get('/create', [ProductController::class, 'productCreate'])->name('product.create');
+        Route::post('/create', [ProductController::class, 'productStore'])->name('product.store');
+        Route::get('/edit/{id}', [ProductController::class, 'productEdit'])->name('product.edit');
+        Route::post('/update', [ProductController::class, 'productUpdate'])->name('product.update');
+        Route::get('/delete/{id}', [ProductController::class, 'productDelete'])->name('product.delete');
+        Route::get('/active/{id}', [ProductController::class, 'productActive'])->name('product.status.active');
+        Route::get('/inactive/{id}', [ProductController::class, 'productInactive'])->name('product.status.inactive');
     });
 
-    Route::group(['prefix' => 'user' ],function (){
-        Route::get('', [UserController::class, 'user'])->name('user');
+    Route::group(['prefix' => 'route' ],function (){
+        Route::get('', [RouteController::class, 'route'])->name('route');
+        Route::get('/create', [RouteController::class, 'routeCreate'])->name('route.create');
+        Route::post('/create', [RouteController::class, 'routeStore'])->name('route.store');
+        Route::get('/edit/{id}', [RouteController::class, 'routeEdit'])->name('route.edit');
+        Route::post('/update', [RouteController::class, 'routeUpdate'])->name('route.update');
+        Route::get('/delete/{id}', [RouteController::class, 'routeDelete'])->name('route.delete');
+        Route::get('/active/{id}', [RouteController::class, 'routeActive'])->name('route.status.active');
+        Route::get('/inactive/{id}', [RouteController::class, 'routeInactive'])->name('route.status.inactive');
     });
 
+   
      //Role Settings
      Route::get('/roles', [RolePermissionController::class, 'index'])->name('role.list');
      Route::get('/create-role', [RolePermissionController::class, 'createRole'])->name('create.role');

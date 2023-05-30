@@ -18,7 +18,15 @@
             <a href="{{route('backend.category')}}" class="nav-link {{Route::is('backend.category*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Category Manage
+                Category
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="{{route('backend.sub.category')}}" class="nav-link {{Route::is('backend.sub.category*') ? "active" : ""}}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Sub Category
               </p>
             </a>
           </li>
@@ -34,19 +42,22 @@
             <a href="{{route('backend.product')}}" class="nav-link {{Route::is('product*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Request Product
+                Product
               </p>
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a href="{{route('backend.user')}}" class="nav-link {{Route::is('user*') ? "active" : ""}}">
+
+          <li class="nav-item">
+            <a href="{{route('backend.route')}}" class="nav-link {{Route::is('backend.route*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                User Manage
+                Route
               </p>
             </a>
-          </li> --}}
+          </li>
 
+
+          
           {{-- menu-open --}}
           <li class="nav-item ">
             <a href="#" class="nav-link">
