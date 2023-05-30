@@ -15,7 +15,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('backend.category')}}" class="nav-link {{Route::is('category*') ? "active" : ""}}">
+            <a href="{{route('backend.category')}}" class="nav-link {{Route::is('backend.category*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Category Manage
@@ -30,31 +30,39 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('backend.user')}}" class="nav-link {{Route::is('user*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 User Manage
               </p>
             </a>
-          </li>
-          {{-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          </li> --}}
+
+          {{-- menu-open --}}
+          <li class="nav-item ">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                User Management
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="{{route('backend.user.list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>User List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('backend.role.list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Role</p>
                 </a>
               </li>
             </ul>
-          </li> --}}
+          </li>
         </ul>
       </nav>
     </div>

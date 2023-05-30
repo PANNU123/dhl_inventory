@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminRoleController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RolePermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +52,19 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
     Route::group(['prefix' => 'user' ],function (){
         Route::get('', [UserController::class, 'user'])->name('user');
     });
+
+     //Role Settings
+     Route::get('/roles', [RolePermissionController::class, 'index'])->name('role.list');
+     Route::get('/create-role', [RolePermissionController::class, 'createRole'])->name('create.role');
+     Route::post('/store-role', [RolePermissionController::class, 'storeRole'])->name('store.role');
+     Route::get('/edit-role/{id}', [RolePermissionController::class, 'editRole'])->name('edit.role');
+     Route::post('/update-role/{id}', [RolePermissionController::class, 'updateRole'])->name('update.role');
+     Route::get('/delete-role/{id}', [RolePermissionController::class, 'deleteRole'])->name('delete.role');
+
+     Route::get('/list', [AdminRoleController::class, 'adminList'])->name('user.list');
+     Route::get('/create', [AdminRoleController::class, 'createAdmin'])->name('create.admin');
+     Route::post('/store', [AdminRoleController::class, 'storeAdmin'])->name('store.admin');
+     Route::get('/edit/{id}', [AdminRoleController::class, 'editAdmin'])->name('edit.admin');
+     Route::post('/update', [AdminRoleController::class, 'updateAdmin'])->name('update.admin');
+     Route::get('/delete/{id}', [AdminRoleController::class, 'deleteAdmin'])->name('delete.admin');
 });
