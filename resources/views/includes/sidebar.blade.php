@@ -22,6 +22,14 @@
               </p>
             </a>
           </li>
+            <li class="nav-item">
+            <a href="{{route('backend.uom')}}" class="nav-link {{Route::is('uom*') ? "active" : ""}}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                UOM
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{route('backend.product')}}" class="nav-link {{Route::is('product*') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>

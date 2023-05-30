@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-@include('includes.breadcrumb',['breadcrumb' => 'Add Category'])
+@include('includes.breadcrumb',['breadcrumb' => 'Edit UOM'])
 
 <section class="content">
     <div class="container-fluid">
@@ -10,14 +10,15 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Category</h3>
+              <h3 class="card-title">Edit UOM</h3>
             </div>
-            <form method="post" action="{{route('backend.category.store')}}">
+            <form method="post" action="{{route('backend.uom.update')}}">
                 @csrf
                 <div class="card-body">
+                    <input type="hidden" name="id" value="{{$edit->id}}">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="name" class="form-control" placeholder="Category Name">
+                            <input type="text" name="name" value="{{$edit->name}}" class="form-control" placeholder="Category Name">
                         </div>
                     </div>
                 </div>

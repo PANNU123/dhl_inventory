@@ -8,6 +8,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +46,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [CategoryController::class, 'categoryDelete'])->name('category.delete');
         Route::get('/active/{id}', [CategoryController::class, 'categoryActive'])->name('category.status.active');
         Route::get('/inactive/{id}', [CategoryController::class, 'categoryInactive'])->name('category.status.inactive');
+    });
+    Route::group(['prefix' => 'uom' ],function (){
+        Route::get('', [UomController::class, 'uomIndex'])->name('uom');
+        Route::get('/create', [UomController::class, 'uomCreate'])->name('uom.create');
+        Route::post('/create', [UomController::class, 'uomStore'])->name('uom.store');
+        Route::get('/edit/{id}', [UomController::class, 'uomEdit'])->name('uom.edit');
+        Route::post('/update', [UomController::class, 'uomUpdate'])->name('oum.update');
+        Route::get('/delete/{id}', [UomController::class, 'uomDelete'])->name('uom.delete');
+        Route::get('/active/{id}', [UomController::class, 'uomActive'])->name('uom.status.active');
+        Route::get('/inactive/{id}', [UomController::class, 'uomInactive'])->name('uom.status.inactive');
     });
 
     Route::group(['prefix' => 'product' ],function (){
