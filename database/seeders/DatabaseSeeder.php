@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
        $this->call(RolePermissionTableSeeder::class);
        $this->call(UomTableSeeder::class);
        $this->call(RouteTableSeeder::class);
+       $this->call(VendorTableSeeder::class);
     }
 }

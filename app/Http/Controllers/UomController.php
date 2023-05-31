@@ -59,7 +59,7 @@ class UomController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
-        return redirect()->route('backend.category');
+        return redirect()->route('backend.uom');
     }
     public function uomDelete($id){
        Uom::where('id',$id)->delete();

@@ -14,51 +14,104 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{route('backend.category')}}" class="nav-link {{Route::is('backend.category*') ? "active" : ""}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Category
-              </p>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a href="{{route('backend.sub.category')}}" class="nav-link {{Route::is('backend.sub.category*') ? "active" : ""}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Sub Category
-              </p>
-            </a>
-          </li>
             <li class="nav-item">
-            <a href="{{route('backend.uom')}}" class="nav-link {{Route::is('uom*') ? "active" : ""}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                UOM
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('backend.product')}}" class="nav-link {{Route::is('product*') ? "active" : ""}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Product
-              </p>
-            </a>
-          </li>
+                <a href="{{route('backend.route')}}" class="nav-link {{Route::is('backend.route*') ? "active" : ""}}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Route
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('backend.vendor')}}" class="nav-link {{Route::is('backend.vendor*') ? "active" : ""}}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Vendor
+                    </p>
+                </a>
+            </li>
 
-          <li class="nav-item">
-            <a href="{{route('backend.route')}}" class="nav-link {{Route::is('backend.route*') ? "active" : ""}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Route
-              </p>
-            </a>
-          </li>
+            {{-- menu-open --}}
+            <li class="nav-item ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Products
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('backend.category')}}" class="nav-link {{Route::is('backend.category*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Category
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('backend.sub.category')}}" class="nav-link {{Route::is('backend.sub.category*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Sub Category
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('backend.uom')}}" class="nav-link {{Route::is('uom*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                UOM
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('backend.product')}}" class="nav-link {{Route::is('product*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Product
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
+            <li class="nav-item ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        Request Products
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('backend.request.product.create')}}" class="nav-link {{Route::is('backend.backend.request.product*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Commercial
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('backend.request.product')}}" class="nav-link {{Route::is('backend.backend.request.product*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Product Review
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('backend.request.product.approved')}}" class="nav-link {{Route::is('backend.backend.request.product*') ? "active" : ""}}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                               Approved Product
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-          
-          {{-- menu-open --}}
           <li class="nav-item ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>

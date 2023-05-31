@@ -11,6 +11,8 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UomController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\RequestProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +61,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/inactive/{id}', [SubCategoryController::class, 'subCategoryInactive'])->name('sub.category.status.inactive');
     });
 
-    
+
 
 
     Route::group(['prefix' => 'uom' ],function (){
@@ -95,7 +97,30 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/inactive/{id}', [RouteController::class, 'routeInactive'])->name('route.status.inactive');
     });
 
-   
+    Route::group(['prefix' => 'vendor' ],function (){
+        Route::get('', [VendorController::class, 'vendor'])->name('vendor');
+        Route::get('/create', [VendorController::class, 'vendorCreate'])->name('vendor.create');
+        Route::post('/create', [VendorController::class, 'vendorStore'])->name('vendor.store');
+        Route::get('/edit/{id}', [VendorController::class, 'vendorEdit'])->name('vendor.edit');
+        Route::post('/update', [VendorController::class, 'vendorUpdate'])->name('vendor.update');
+        Route::get('/delete/{id}', [VendorController::class, 'vendorDelete'])->name('vendor.delete');
+        Route::get('/active/{id}', [VendorController::class, 'vendorActive'])->name('vendor.status.active');
+        Route::get('/inactive/{id}', [VendorController::class, 'vendorInactive'])->name('vendor.status.inactive');
+    });
+
+    Route::group(['prefix' => 'request-product' ],function (){
+        Route::get('', [RequestProductController::class, 'requestProduct'])->name('request.product');
+        Route::get('/approved/product', [RequestProductController::class, 'requestProductApproved'])->name('request.product.approved');
+        Route::get('/create', [RequestProductController::class, 'requestProductCreate'])->name('request.product.create');
+        Route::post('/create', [RequestProductController::class, 'requestProductStore'])->name('request.product.store');
+        Route::get('/active/{id}', [RequestProductController::class, 'requestProductActive'])->name('request.product.status.active');
+        Route::get('/request/product/qty/check/{id}', [RequestProductController::class, 'requestProductQtyCheck'])->name('request.product.qty.check');
+        Route::post('/product/preview/store', [RequestProductController::class, 'requestProductPreview'])->name('request.product.preview.store');
+//        Route::get('/delete/{id}', [RequestProductController::class, 'requestProductDelete'])->name('request.product.delete');
+//        Route::get('/inactive/{id}', [RequestProductController::class, 'requestProductInactive'])->name('request.product.status.inactive');
+    });
+
+
      //Role Settings
      Route::get('/roles', [RolePermissionController::class, 'index'])->name('role.list');
      Route::get('/create-role', [RolePermissionController::class, 'createRole'])->name('create.role');
