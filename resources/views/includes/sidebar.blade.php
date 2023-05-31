@@ -1,7 +1,7 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{route('backend.dashboard')}}" class="brand-link">
+      <img src="{{asset('assets/dist/img/DHL-Logo.png')}}" alt="DHL Logo" class="elevation-2" style="height: 100px;width: 230px;">
+{{--      <span class="brand-text font-weight-light">AdminLTE 3</span>--}}
     </a>
     <div class="sidebar">
       <nav class="mt-2">

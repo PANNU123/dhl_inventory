@@ -118,12 +118,13 @@ class RequestProductController extends Controller
     }
     public function requestProductPreview(Request $request)
     {
+//        return $request;
         $request_product = RequestProduct::where('id',$request->id)->first();
         if($request->check_quantity == 'IFQ'){
-            RequestProduct::where('id',$request->id)->update([
+            $request_product->update([
                 'issue_full_quantity'=>$request->request_quantity,
             ]);
-            $product = Product::where('id',$request->id)->first();
+            $product = Product::where('id',$request_product->product_id)->first();
             if($product){
                 $product->update([
                    'qty'=>$product->qty - $request->request_quantity
@@ -139,7 +140,7 @@ class RequestProductController extends Controller
             $product = Product::where('id',$request_product->product_id)->first();
 //            if ($request_product)
 //            {
-//                $request->update([
+//                $request_product->update([
 //                    'quantity' => $request_product->quantity - $request->partial_quantity
 //                ]);
 //            }
