@@ -30,6 +30,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('backend.vehicle') }}" class="nav-link {{Route::is('backend.vehicle*') ? "active" : ""}}">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Vehicle
+                    </p>
+                </a>
+            </li>
 
             {{-- menu-open --}}
             <li class="nav-item ">

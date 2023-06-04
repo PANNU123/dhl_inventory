@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\RequestProductController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,8 @@ use App\Http\Controllers\RequestProductController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -106,6 +108,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [VendorController::class, 'vendorDelete'])->name('vendor.delete');
         Route::get('/active/{id}', [VendorController::class, 'vendorActive'])->name('vendor.status.active');
         Route::get('/inactive/{id}', [VendorController::class, 'vendorInactive'])->name('vendor.status.inactive');
+    });
+
+    Route::group(['prefix' => 'vehicle' ],function (){
+        Route::get('', [VehicleController::class, 'vehicle'])->name('vehicle');
+        Route::get('/create', [VehicleController::class, 'vehicleCreate'])->name('vehicle.create');
+        Route::post('/create', [VehicleController::class, 'vehicleStore'])->name('vehicle.store');
+        Route::get('/edit/{id}', [VehicleController::class, 'vehicleEdit'])->name('vehicle.edit');
+        Route::post('/update', [VehicleController::class, 'vehicleUpdate'])->name('vehicle.update');
+        Route::get('/delete/{id}', [VehicleController::class, 'vehicleDelete'])->name('vehicle.delete');
+        Route::get('/active/{id}', [VehicleController::class, 'vehicleActive'])->name('vehicle.status.active');
+        Route::get('/inactive/{id}', [VehicleController::class, 'vehicleInactive'])->name('vehicle.status.inactive');
     });
 
     Route::group(['prefix' => 'request-product' ],function (){

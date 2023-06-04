@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="name" class="form-control" placeholder="Category Name">
+                            <input type="text" name="name" class="form-control" placeholder="Route Name">
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="name" value="{{$edit->name}}" class="form-control" placeholder="Category Name">
+                            <input type="text" name="name" value="{{$edit->name}}" class="form-control">
                         </div>
                     </div>
                 </div>

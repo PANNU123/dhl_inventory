@@ -33,7 +33,7 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <label>Product Name</label>
                                             <select class="form-select" name="check_quantity" id="checkQuantity">
                                                 <option value="IFQ">Issue Full Quantity</option>
@@ -41,9 +41,17 @@
                                                 <option value="IBQ">Issue Balance Quantity</option>
                                             </select>
                                         </div>
-                                        <div class="col-6 partialQuantityShow" style="display: none">
+                                        <div class="col-4 partialQuantityShow" style="display: none">
                                             <label>Product Name</label>
                                             <input type="text" name="partial_quantity" class="form-control" placeholder="quantity">
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Vehicle</label>
+                                            <select class="form-select" name="vehicle_id" id="">
+                                                @foreach($vehicles as $vehicle)
+                                                    <option value="{{$vehicle->id}}">{{ $vehicle->vehicle_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

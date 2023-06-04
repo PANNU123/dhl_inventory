@@ -25,6 +25,7 @@
               <table id="dataTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>Vendor</th>
                   <th>Category</th>
                   <th>SubCategory</th>
                   <th>Product</th>
@@ -66,6 +67,10 @@
           url: "{{route('backend.product')}}",
       },
       columns: [
+        {
+              data: 'Vendor',
+              name: 'Vendor'
+          },
           {
               data: 'Category',
               name: 'Category'

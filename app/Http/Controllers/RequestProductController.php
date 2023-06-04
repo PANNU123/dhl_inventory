@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\RequestProduct;
 use App\Models\Route;
+use App\Models\Vehicle;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 class RequestProductController extends Controller
 {
@@ -114,22 +118,36 @@ class RequestProductController extends Controller
     public function requestProductQtyCheck($id)
     {
         $data = RequestProduct::with('product')->where('id',$id)->first();
-        return view('pages.request_product.preview_request_product',compact('data'));
+        $vehicles = Vehicle::get();
+        return view('pages.request_product.preview_request_product',compact('data','vehicles'));
     }
     public function requestProductPreview(Request $request)
     {
-//        return $request;
+         $vehicle = Vehicle::where('id',$request->vehicle_id)->first();
+         $user = User::where('id',$vehicle->user_id)->first();
+
+
+
         $request_product = RequestProduct::where('id',$request->id)->first();
+        $product = Product::where('id',$request_product->product_id)->first();
         if($request->check_quantity == 'IFQ'){
             $request_product->update([
                 'issue_full_quantity'=>$request->request_quantity,
+                'quantity'=> 0,
             ]);
-            $product = Product::where('id',$request_product->product_id)->first();
             if($product){
                 $product->update([
                    'qty'=>$product->qty - $request->request_quantity
                 ]);
             }
+            $data = [
+                'name' =>$user->full_name,
+                'subject' => 'Delivery Email',
+                'message' => 'Delivery Message',
+            ];
+            $user_email =  $user->email;
+
+            Mail::to($user_email)->send(new SendMail($data));
             return redirect()->back();
         }
         if($request->check_quantity == 'IPQ'){
@@ -137,13 +155,6 @@ class RequestProductController extends Controller
                 'issue_partial_quantity' => $request->partial_quantity,
                 'issue_balance_quantity' =>  $request->request_quantity - $request->partial_quantity
             ]);
-            $product = Product::where('id',$request_product->product_id)->first();
-//            if ($request_product)
-//            {
-//                $request_product->update([
-//                    'quantity' => $request_product->quantity - $request->partial_quantity
-//                ]);
-//            }
             if($product && $request_product){
                 $request_product->update([
                     'quantity' => $request_product->quantity - $request->partial_quantity
@@ -152,10 +163,19 @@ class RequestProductController extends Controller
                     'qty'=>$product->qty - $request->partial_quantity
                 ]);
             }
+            $data = [
+                'name' =>$user->full_name,
+                'subject' => 'Delivery Email',
+                'message' => 'Delivery Message',
+            ];
+            $user_email =  $user->email;
+
+            Mail::to($user_email)->send(new SendMail($data));
             return redirect()->back();
         }
         if($request->check_quantity == 'IBQ'){
             RequestProduct::where('id',$request->id)->update([
+                'quantity'=>0,
                 'issue_balance_quantity' =>  $request->request_quantity
             ]);
             return redirect()->back();

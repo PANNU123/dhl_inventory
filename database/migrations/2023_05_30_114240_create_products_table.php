@@ -22,6 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('uom_id')->index()->nullable();
             $table->foreign('uom_id')->references('id')->on('uoms')->onDelete('cascade');
 
+            $table->unsignedBigInteger('vendor_id')->index()->nullable();
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
 
             $table->string('name');
             $table->string('slug');

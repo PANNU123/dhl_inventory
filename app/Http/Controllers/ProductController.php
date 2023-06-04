@@ -6,14 +6,17 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Uom;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
+   
     public function product(Request $request){
+        // return $data = Product::with('category','subcategory','uom','vendor')->latest()->get();
         if ($request->ajax()) {
-            $data = Product::with('category','subcategory','uom')->latest()->get();
+            $data = Product::with('category','subcategory','uom','vendor')->latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -41,6 +44,9 @@ class ProductController extends Controller
                 ->editColumn('Sub_Category', function ($data) {
                     return $data->subcategory->name;
                 })
+                ->editColumn('Vendor', function ($data) {
+                    return $data->vendor->vendor_name;
+                })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
                         return '<span class="eg-btn green-light--btn">Active</span>';
@@ -48,20 +54,23 @@ class ProductController extends Controller
                         return '<span class="eg-btn red-light--btn">InActive</span>';
                     }
                 })
-                ->rawColumns(['action','Category','Sub_Category','Price','Qty','Status'])
+                ->rawColumns(['action','Vendor','Category','Sub_Category','Price','Qty','Status'])
                 ->make(true);
         }
         return view('pages.product.index');
     }
     public function productCreate(){
+        $vendors = Vendor::get();
         $categories = Category::get();
         $subcategories = SubCategory::get();
         $uoms = Uom::get();
-        return view('pages.product.create',compact('categories','subcategories','uoms'));
+        return view('pages.product.create',compact('categories','subcategories','uoms','vendors'));
     }
     public function productStore(Request $request){
+        // return $request->all();
         Product::create([
             'category_id'=>$request->category_id,
+            'vendor_id'=>$request->vendor_id,
             'sub_category_id'=>$request->sub_category_id,
             'uom_id'=>$request->uom_id,
             'name'=>$request->name,
@@ -76,12 +85,14 @@ class ProductController extends Controller
         $categories = Category::get();
         $subcategories = SubCategory::get();
         $uoms = Uom::get();
+        $vendors = Vendor::get();
         $edit = Product::where('id',$id)->first();
-        return view('pages.product.edit',compact('edit','categories','subcategories','uoms'));
+        return view('pages.product.edit',compact('edit','categories','subcategories','uoms','vendors'));
     }
     public function productUpdate(Request $request){
         Product::where('id',$request->id)->update([
             'category_id'=>$request->category_id,
+            'vendor_id'=>$request->vendor_id,
             'sub_category_id'=>$request->sub_category_id,
             'uom_id'=>$request->uom_id,
             'name'=>$request->name,

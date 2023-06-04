@@ -18,7 +18,7 @@
                     <input type="hidden" name="id" value="{{$edit->id}}">
                     <div class="row">
                         <div class="col-12">
-                            <input type="text" name="name" value="{{$edit->name}}" class="form-control" placeholder="Category Name">
+                            <input type="text" name="name" value="{{$edit->name}}" class="form-control">
                         </div>
                     </div>
                 </div>

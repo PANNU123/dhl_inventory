@@ -16,7 +16,15 @@
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
+                            <label>Vendor Name</label>
+                            <select class="form-select" name="vendor_id">
+                                @foreach ($vendors as $item)
+                                    <option value="{{$item->id}}">{{$item->vendor_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-3">
                             <label>Category Name</label>
                             <select class="form-select" name="category_id">
                                 @foreach ($categories as $item)
@@ -24,7 +32,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <label>Sub Category Name</label>
                             <select class="form-select" name="sub_category_id">
                                 @foreach ($subcategories as $item)
@@ -32,7 +40,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <label>UOM</label>
                             <select class="form-select" name="uom_id">
                                 @foreach ($uoms as $item)
