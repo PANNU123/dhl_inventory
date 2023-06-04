@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
     public function category(Request $request){
-
         if ($request->ajax()) {
             $data = Category::latest()->get();
             return DataTables::of($data)
@@ -31,9 +29,9 @@ class CategoryController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Name','Status'])
@@ -49,6 +47,7 @@ class CategoryController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Category Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.category');
     }
     public function categoryEdit($id){
