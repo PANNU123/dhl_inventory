@@ -19,14 +19,15 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="index2.html" class="h1"><b>Screen </b> Lock</a>
+{{--      <a href="index2.html" class="h1"><b>Screen </b> Lock</a>--}}
+        <img src="{{asset('assets/dist/img/DHL-Logo.png')}}" alt="DHL Logo" class="" style="height: 100px;width: 280px;">
     </div>
     <div class="card-body">
-        <p class="login-box-msg">sajjad.cse.ku@gmail.com</p>
+        <p class="login-box-msg">{{Auth::user()->email}}</p>
       <form action="{{ route('backend.unlock') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -34,7 +35,7 @@
           </div>
         </div>
       <div class="social-auth-links text-center mt-2 mb-3">
-        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-block btn-primary">Unlock</button>
       </div>
     </form>
     </div>

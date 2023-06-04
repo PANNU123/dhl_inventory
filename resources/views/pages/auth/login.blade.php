@@ -22,7 +22,7 @@
     <div class="card-header text-center">
       {{-- <a href="{{ route('login') }}" class="h1"><b></a> --}}
       <a href="{{ route('login') }}" class="brand-link">
-        <img src="{{asset('assets/dist/img/DHL-Logo.png')}}" alt="DHL Logo" class="" style="height: 80px;width: 130px;">
+          <img src="{{asset('assets/dist/img/DHL-Logo.png')}}" alt="DHL Logo" class="" style="height: 100px;width: 280px;">
        {{-- <span class="brand-text font-weight-light"> DHL</span> --}}
       </a>
     </div>

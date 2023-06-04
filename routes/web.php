@@ -31,8 +31,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class,'loginDashboard'])->name('login.post');
+Route::get('admin/login', [AuthController::class, 'login'])->name('login');
+Route::post('admin/login', [AuthController::class,'loginDashboard'])->name('login.post');
 
 Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'],'as' =>'backend.'],function() {
     Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');

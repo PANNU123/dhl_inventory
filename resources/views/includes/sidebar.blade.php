@@ -7,7 +7,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{route('backend.dashboard')}}" class="nav-link {{Route::is('dashboard') ? "active" : ""}}">
+            <a href="{{route('backend.dashboard')}}" class="nav-link {{Route::is('backend.dashboard') ? "active" : ""}}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
@@ -40,8 +40,8 @@
             </li>
 
             {{-- menu-open --}}
-            <li class="nav-item ">
-                <a href="#" class="nav-link">
+            <li class="nav-item {{Route::is('backend.category*') || Route::is('backend.sub.category*') || Route::is('backend.uom*') || Route::is('backend.product*')  ? "menu-open" : ""}}">
+                <a href="#" class="nav-link {{Route::is('backend.category*') || Route::is('backend.sub.category*') || Route::is('backend.uom*') || Route::is('backend.product*') ? "active" : ""}}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Products
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('backend.uom')}}" class="nav-link {{Route::is('uom*') ? "active" : ""}}">
+                        <a href="{{route('backend.uom')}}" class="nav-link {{Route::is('backend.uom*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 UOM
@@ -74,7 +74,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('backend.product')}}" class="nav-link {{Route::is('product*') ? "active" : ""}}">
+                        <a href="{{route('backend.product')}}" class="nav-link {{Route::is('backend.product*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Product

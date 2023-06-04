@@ -15,6 +15,12 @@ class AuthController extends Controller
         if(Session::get('userLogin')){
             return redirect()->route('backend.dashboard');
         }
+        if(Auth::user()){
+            if(Session::get('authEmail')){
+                return redirect()->route('admin.lock');
+            }
+            return redirect()->route('admin.dashboard');
+        }
         return view('pages.auth.login');
     }
     public  function loginDashboard(Request $request){

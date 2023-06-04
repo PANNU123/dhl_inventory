@@ -33,7 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                
+
                 </tbody>
               </table>
             </div>
@@ -50,7 +50,7 @@
 @push('post_scripts')
 <script>
     $(function () {
-      $('#dataTable').DataTable({
+     let table = $('#dataTable').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": true,
