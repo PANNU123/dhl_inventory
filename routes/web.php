@@ -142,12 +142,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/report-price-fluctuation', [ReportsController::class, 'reportsPriceFluctuation'])->name('reports.price.fluctuation');
         Route::get('/report-stock', [ReportsController::class, 'reportsStock'])->name('reports.stock');
         Route::get('/report-analysis', [ReportsController::class, 'reportsAnalysis'])->name('reports.analysis');
-//        Route::post('/create', [VehicleController::class, 'reports'])->name('vehicle.store');
-//        Route::get('/edit/{id}', [VehicleController::class, 'reports'])->name('vehicle.edit');
-//        Route::post('/update', [VehicleController::class, 'reports'])->name('vehicle.update');
-//        Route::get('/delete/{id}', [VehicleController::class, 'reports'])->name('vehicle.delete');
-//        Route::get('/active/{id}', [VehicleController::class, 'reports'])->name('vehicle.status.active');
-//        Route::get('/inactive/{id}', [VehicleController::class, 'reports'])->name('vehicle.status.inactive');
     });
 
      //Role Settings
