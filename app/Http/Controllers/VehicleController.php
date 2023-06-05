@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Vehicle;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -37,17 +38,17 @@ class VehicleController extends Controller
                 ->editColumn('Vehicle_Engine_Number', function ($data) {
                     return $data->vehicle_engine_number;
                 })
-    //                ->editColumn('Vendors_Address', function ($data) {
-    //                    return $data->vendor_address;
-    //                })
+                //                ->editColumn('Vendors_Address', function ($data) {
+                //                    return $data->vendor_address;
+                //                })
                 ->editColumn('Vehicle_Chassis_Number', function ($data) {
                     return $data->vehicle_chassis_number;
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Vehicle_Name','Vehicle_CC','Vehicle_Engine_Number','Vehicle_Chassis_Number','Status'])
@@ -68,6 +69,7 @@ class VehicleController extends Controller
             'vehicle_engine_number'=>$request->vehicle_engine_number,
             'vehicle_chassis_number'=>$request->vehicle_chassis_number,
         ]);
+        Toastr::success('', 'Vehicle Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.vehicle');
     }
     public function vehicleEdit($id){
@@ -83,22 +85,26 @@ class VehicleController extends Controller
             'vehicle_engine_number'=>$request->vehicle_engine_number,
             'vehicle_chassis_number'=>$request->vehicle_chassis_number,
         ]);
+        Toastr::success('', 'Vehicle Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.vehicle');
     }
     public function vehicleDelete($id){
         Vehicle::where('id',$id)->delete();
+        Toastr::error('', 'Vehicle Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function vehicleActive($id){
         Vehicle::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'Vehicle Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function vehicleInactive($id){
         Vehicle::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'Vehicle Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 }

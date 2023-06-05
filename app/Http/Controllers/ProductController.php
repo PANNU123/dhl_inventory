@@ -7,12 +7,13 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Uom;
 use App\Models\Vendor;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
-   
+
     public function product(Request $request){
         // return $data = Product::with('category','subcategory','uom','vendor')->latest()->get();
         if ($request->ajax()) {
@@ -49,9 +50,9 @@ class ProductController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Vendor','Category','Sub_Category','Price','Qty','Status'])
@@ -64,6 +65,7 @@ class ProductController extends Controller
         $categories = Category::get();
         $subcategories = SubCategory::get();
         $uoms = Uom::get();
+
         return view('pages.product.create',compact('categories','subcategories','uoms','vendors'));
     }
     public function productStore(Request $request){
@@ -79,6 +81,7 @@ class ProductController extends Controller
             'description'=>$request->description,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Product Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.product');
     }
     public function productEdit($id){
@@ -101,23 +104,27 @@ class ProductController extends Controller
             'description'=>$request->description,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Product Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.product');
     }
 
     public function productDelete($id){
         Product::where('id',$id)->delete();
+        Toastr::error('', 'Product Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function productActive($id){
         Product::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'Product Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function productInactive($id){
         Product::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'Category Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function slugify($text){

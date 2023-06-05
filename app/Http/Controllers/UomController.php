@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Uom;
@@ -29,9 +30,9 @@ class UomController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Name','Status'])
@@ -47,6 +48,7 @@ class UomController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'UOM Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.uom');
     }
     public function uomEdit($id){
@@ -59,22 +61,26 @@ class UomController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'UOM Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.uom');
     }
     public function uomDelete($id){
-       Uom::where('id',$id)->delete();
+        Uom::where('id',$id)->delete();
+        Toastr::error('', 'UOM Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function uomActive($id){
         Uom::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'UOM Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function uomInactive($id){
         Uom::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'UOM Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 

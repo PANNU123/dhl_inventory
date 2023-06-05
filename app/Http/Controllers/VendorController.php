@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Vendor;
@@ -47,9 +48,9 @@ class VendorController extends Controller
 //                })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','SAP_Vendor_Code','get_vendor_code','vendor_name','vendor_address','contact_person_name','contact_number','contact_email','Status'])
@@ -72,6 +73,7 @@ class VendorController extends Controller
             'contact_number'=> $request->contact_number,
             'contact_email'=> $request->contact_email,
         ]);
+        Toastr::success('', 'Vendor Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.vendor');
     }
     public function vendorEdit($id){
@@ -88,22 +90,26 @@ class VendorController extends Controller
             'contact_number'=> $request->contact_number,
             'contact_email'=> $request->contact_email,
         ]);
+        Toastr::success('', 'Vendor Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.vendor');
     }
     public function vendorDelete($id){
         Vendor::where('id',$id)->delete();
+        Toastr::error('', 'Vendor Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function vendorActive($id){
         Vendor::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'Vendor Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function vendorInactive($id){
         Vendor::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'Vendor Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 }

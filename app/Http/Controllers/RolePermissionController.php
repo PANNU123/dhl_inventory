@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class RolePermissionController extends Controller
@@ -24,7 +25,7 @@ class RolePermissionController extends Controller
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($permission);
     }
-    // Toastr::success('Role Create', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+     Toastr::success('Role Create', 'Successfully', ["positionClass" => "toast-bottom-right"]);
     return redirect()->route('backend.role.list');
     }
     public function editRole($id){
@@ -42,7 +43,7 @@ class RolePermissionController extends Controller
                 $role->update([
                    'name'=>$request->name,
                 ]);
-                // Toastr::success('Role Update', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+                 Toastr::success('Role Update', 'Successfully', ["positionClass" => "toast-bottom-right"]);
                 return redirect()->route('backend.role.list');
             }
         }
@@ -52,7 +53,7 @@ class RolePermissionController extends Controller
         if ($delete) {
             return redirect()->back();
         }
-        // Toastr::warning('Something is Wrong', 'Warning', ["positionClass" => "toast-bottom-right"]);
+         Toastr::warning('Something is Wrong', 'Warning', ["positionClass" => "toast-bottom-right"]);
         return redirect()->back();
     }
 }

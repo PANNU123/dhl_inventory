@@ -45,9 +45,9 @@ class RequestProductController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
@@ -68,7 +68,7 @@ class RequestProductController extends Controller
                     {
                         $btn = '<a href="' . route('backend.request.product.qty.check', $data->id) . '" class="btn btn-success btn-sm">View</a>';
                     }
-                        return $btn;
+                    return $btn;
                 })
                 ->editColumn('Product_Name', function ($data) {
                     return $data->product->name;
@@ -81,9 +81,9 @@ class RequestProductController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
@@ -123,8 +123,8 @@ class RequestProductController extends Controller
     }
     public function requestProductPreview(Request $request)
     {
-         $vehicle = Vehicle::where('id',$request->vehicle_id)->first();
-         $user = User::where('id',$vehicle->user_id)->first();
+        $vehicle = Vehicle::where('id',$request->vehicle_id)->first();
+        $user = User::where('id',$vehicle->user_id)->first();
 
 
 
@@ -137,7 +137,7 @@ class RequestProductController extends Controller
             ]);
             if($product){
                 $product->update([
-                   'qty'=>$product->qty - $request->request_quantity
+                    'qty'=>$product->qty - $request->request_quantity
                 ]);
             }
             $data = [

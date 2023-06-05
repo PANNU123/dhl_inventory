@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\SubCategory;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -25,7 +26,7 @@ class SubCategoryController extends Controller
                     }
                     return $btn;
                 })
-                
+
                 ->editColumn('Sub_Category_Name', function ($data) {
                     return $data->name;
                 })
@@ -34,9 +35,9 @@ class SubCategoryController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Sub_Category_Name','Category_Name','Status'])
@@ -54,6 +55,7 @@ class SubCategoryController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'SubCategory Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.sub.category');
     }
     public function subCategoryEdit($id){
@@ -67,23 +69,27 @@ class SubCategoryController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'SubCategory Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.sub.category');
     }
 
     public function subCategoryDelete($id){
         SubCategory::where('id',$id)->delete();
+        Toastr::error('', 'SubCategory Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function subCategoryActive($id){
         SubCategory::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'SubCategory Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function subCategoryInactive($id){
         SubCategory::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'SubCategory Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function slugify($text){

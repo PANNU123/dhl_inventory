@@ -59,23 +59,27 @@ class CategoryController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Category Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.category');
     }
 
     public function categoryDelete($id){
         Category::where('id',$id)->delete();
+        Toastr::error('', 'Category Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function categoryActive($id){
         Category::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'Category Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function categoryInactive($id){
         Category::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'Category Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function slugify($text){

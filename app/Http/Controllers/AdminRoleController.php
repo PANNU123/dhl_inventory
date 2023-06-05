@@ -34,10 +34,10 @@ class AdminRoleController extends Controller
             if ($request->roles) {
                 $admin->assignRole($request->roles);
             }
-            // Toastr::success('User Create With Role', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+             Toastr::success('User Create With Role', 'Successfully', ["positionClass" => "toast-bottom-right"]);
             return redirect()->route('backend.user.list');
         }
-        // Toastr::error('Something is wrong', 'warning', ["positionClass" => "toast-bottom-right"]);
+         Toastr::error('Something is wrong', 'warning', ["positionClass" => "toast-bottom-right"]);
         return redirect()->back();
     }
 

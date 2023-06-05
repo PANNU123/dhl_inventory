@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Route;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class RouteController extends Controller
 {
-        public function route(Request $request){
+    public function route(Request $request){
 
         if ($request->ajax()) {
             $data = Route::latest()->get();
@@ -29,9 +30,9 @@ class RouteController extends Controller
                 })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
-                        return '<span class="eg-btn green-light--btn">Active</span>';
+                        return '<span class="badge bg-success">Active</span>';
                     }else{
-                        return '<span class="eg-btn red-light--btn">InActive</span>';
+                        return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
                 ->rawColumns(['action','Name','Status'])
@@ -47,6 +48,7 @@ class RouteController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Route Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.route');
     }
     public function routeEdit($id){
@@ -58,23 +60,27 @@ class RouteController extends Controller
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        Toastr::success('', 'Route Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.route');
     }
 
     public function routeDelete($id){
         Route::where('id',$id)->delete();
+        Toastr::error('', 'Route Delete Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function routeActive($id){
         Route::where('id',$id)->update([
             'status'=>1
         ]);
+        Toastr::success('', 'Route Status Active', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function routeInactive($id){
         Route::where('id',$id)->update([
             'status'=>0
         ]);
+        Toastr::warning('', 'Route Status InActive', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
     public function slugify($text){
