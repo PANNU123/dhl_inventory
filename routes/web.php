@@ -14,6 +14,7 @@ use App\Http\Controllers\UomController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\RequestProductController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,10 +130,25 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/active/{id}', [RequestProductController::class, 'requestProductActive'])->name('request.product.status.active');
         Route::get('/request/product/qty/check/{id}', [RequestProductController::class, 'requestProductQtyCheck'])->name('request.product.qty.check');
         Route::post('/product/preview/store', [RequestProductController::class, 'requestProductPreview'])->name('request.product.preview.store');
-//        Route::get('/delete/{id}', [RequestProductController::class, 'requestProductDelete'])->name('request.product.delete');
-//        Route::get('/inactive/{id}', [RequestProductController::class, 'requestProductInactive'])->name('request.product.status.inactive');
     });
 
+    Route::group(['prefix' => 'reports' ],function (){
+        Route::get('/packaging-material', [ReportsController::class, 'reportsPackagingMaterial'])->name('reports.packaging.material');
+        Route::get('/quantity-movement', [ReportsController::class, 'reportsQuantityMovement'])->name('reports.quantity.movement');
+        Route::get('/value-movement', [ReportsController::class, 'reportsValueMovement'])->name('reports.value.movement');
+        Route::get('/product-movement', [ReportsController::class, 'reportsProductMovement'])->name('reports.product.movement');
+        Route::get('/report-vendor', [ReportsController::class, 'reportsVendor'])->name('reports.vendor');
+        Route::get('/report-request', [ReportsController::class, 'reportsRequest'])->name('reports.request');
+        Route::get('/report-price-fluctuation', [ReportsController::class, 'reportsPriceFluctuation'])->name('reports.price.fluctuation');
+        Route::get('/report-stock', [ReportsController::class, 'reportsStock'])->name('reports.stock');
+        Route::get('/report-analysis', [ReportsController::class, 'reportsAnalysis'])->name('reports.analysis');
+//        Route::post('/create', [VehicleController::class, 'reports'])->name('vehicle.store');
+//        Route::get('/edit/{id}', [VehicleController::class, 'reports'])->name('vehicle.edit');
+//        Route::post('/update', [VehicleController::class, 'reports'])->name('vehicle.update');
+//        Route::get('/delete/{id}', [VehicleController::class, 'reports'])->name('vehicle.delete');
+//        Route::get('/active/{id}', [VehicleController::class, 'reports'])->name('vehicle.status.active');
+//        Route::get('/inactive/{id}', [VehicleController::class, 'reports'])->name('vehicle.status.inactive');
+    });
 
      //Role Settings
      Route::get('/roles', [RolePermissionController::class, 'index'])->name('role.list');
