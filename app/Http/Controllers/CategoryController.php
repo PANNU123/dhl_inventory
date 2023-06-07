@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Brian2694\Toastr\Facades\Toastr;
@@ -40,9 +41,11 @@ class CategoryController extends Controller
         return view('pages.category.index');
     }
     public function categoryCreate(){
-        return view('pages.category.add');
+        $users = User::get();
+        return view('pages.category.add',compact('users'));
     }
     public function categoryStore(Request $request){
+        return $request->all();
         Category::create([
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),

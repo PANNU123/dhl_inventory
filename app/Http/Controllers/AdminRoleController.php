@@ -6,6 +6,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Brian2694\Toastr\Facades\Toastr;
 
 class AdminRoleController extends Controller
 {
@@ -66,16 +67,16 @@ class AdminRoleController extends Controller
         } else {
             $admin->roles()->detach(); //If no role is selected remove exisiting role associated to a user
         }
-        // Toastr::success('User Update  With Role', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+         Toastr::success('User Update  With Role', 'Successfully', ["positionClass" => "toast-bottom-right"]);
         return redirect()->back();
     }
     public function deleteAdmin($id){
         $delete = User::where('id', $id)->delete();
         if ($delete) {
-            // Toastr::success('User Delete', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+             Toastr::success('User Delete', 'Successfully', ["positionClass" => "toast-bottom-right"]);
             return redirect()->back();
         }
-        // Toastr::error('User does not delete', 'Successfully', ["positionClass" => "toast-bottom-right"]);
+         Toastr::error('User does not delete', 'Successfully', ["positionClass" => "toast-bottom-right"]);
         return redirect()->back();
     }
 }
