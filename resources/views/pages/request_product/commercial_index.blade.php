@@ -61,7 +61,7 @@
                 "autoWidth": false,
                 "responsive": true,
                 ajax: {
-                    url: "{{route('backend.commercial.request.product')}}",
+                    url: "{{route('backend.request.product.commercial')}}",
                 },
                 columns: [
                     {

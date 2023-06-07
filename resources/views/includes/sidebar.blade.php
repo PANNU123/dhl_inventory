@@ -85,8 +85,8 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{Route::is('backend.request.product.create*') || Route::is('backend.commercial.request.product*') || Route::is('backend.request.product.approved*')  ? "menu-open" : ""}}">
-                <a href="#" class="nav-link {{Route::is('backend.request.product.create*') || Route::is('backend.commercial.request.product*') || Route::is('backend.request.product.approved*')  ? "active" : ""}}">
+            <li class="nav-item {{Route::is('backend.request.product.commercial*') || Route::is('backend.request.product*') || Route::is('backend.request.product.approved*')  ? "menu-open" : ""}}">
+                <a href="#" class="nav-link {{Route::is('backend.request.product.commercial*') || Route::is('backend.request.product*') || Route::is('backend.request.product.approved*')  ? "active" : ""}}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Request Products
@@ -95,7 +95,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('backend.commercial.request.product')}}" class="nav-link {{Route::is('backend.commercial.request.product*') ? "active" : ""}}">
+                        <a href="{{route('backend.request.product.commercial')}}" class="nav-link {{Route::is('backend.request.product.commercial*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Commercial
