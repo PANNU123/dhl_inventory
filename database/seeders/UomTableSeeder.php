@@ -15,8 +15,16 @@ class UomTableSeeder extends Seeder
     public function run(): void
     {
         Uom::create([
-            'name'=>'Test',
-            'slug'=>$this->slugify('Test')
+            'name'=>'Piece',
+            'slug'=>$this->slugify('Piece')
+        ]);
+        Uom::create([
+            'name'=>'Box',
+            'slug'=>$this->slugify('Box')
+        ]);
+        Uom::create([
+            'name'=>'KG/Pound',
+            'slug'=>$this->slugify('KG/Pound')
         ]);
     }
     public function slugify($text){

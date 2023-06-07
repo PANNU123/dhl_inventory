@@ -9,6 +9,6 @@ class Route extends Model
 {
     use HasFactory;
      protected $fillable = [
-        'name','slug','status'
+        'name','code','slug','status'
     ];
 }

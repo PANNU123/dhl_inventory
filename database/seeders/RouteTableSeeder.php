@@ -14,7 +14,8 @@ class RouteTableSeeder extends Seeder
     public function run(): void
     {
         Route::create([
-            'name'=>'Dhaka',
+            'name'=>'Banani Outlet',
+            'code'=>'BAN',
             'slug'=>$this->slugify('Dhaka'),
         ]);
     }

@@ -17,8 +17,17 @@ class VendorTableSeeder extends Seeder
     {
         Vendor::create([
             'sap_vendor_code' => '123456',
-            'get_vendor_code' => '1253125',
+            'get_vendor_code' => '125312',
             'vendor_name' =>  'sajjad',
+            'vendor_address'=>'Home# 30,Road# 3, Mirpur-12,Dhaka-1216,Bangladesh',
+            'contact_person_name'=>'kabir',
+            'contact_number'=>'1796234234',
+            'contact_email'=>'superadmin@gmail.com',
+        ]);
+        Vendor::create([
+            'sap_vendor_code' => '536855',
+            'get_vendor_code' => '652514',
+            'vendor_name' =>  'Kabir',
             'vendor_address'=>'Home# 30,Road# 3, Mirpur-12,Dhaka-1216,Bangladesh',
             'contact_person_name'=>'kabir',
             'contact_number'=>'1796234234',
