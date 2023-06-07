@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('issue_full_quantity')->nullable();
             $table->integer('issue_partial_quantity')->nullable();
             $table->integer('issue_balance_quantity')->nullable();
-            $table->integer('issue_product_quantity')->nullable();
+            $table->integer('admin_set_quantity')->nullable();
             $table->integer('vehicle_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

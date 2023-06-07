@@ -35,16 +35,25 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <label>Product Name</label>
-                                            <select class="form-select" name="check_quantity" id="checkQuantity">
-                                                <option value="IFQ">Issue Full Quantity</option>
-                                                <option value="IPQ">Issue Partial Quantity</option>
-                                                <option value="IBQ">Issue Balance Quantity</option>
+                                            <select class="form-select" id="checkQuantity" disabled>
+                                                <option {{$data->admin_set_quantity == ISSUE_FULL_QUANTITY ? "selected" : ""}}>Issue Full Quantity</option>
+                                                <option {{$data->admin_set_quantity == ISSUE_PARTIAL_QUANTITY ? "selected" : ""}}>Issue Partial Quantity</option>
+                                                <option {{$data->admin_set_quantity == ISSUE_BALANCE_QUANTITY ? "selected" : ""}}>Issue Balance Quantity</option>
                                             </select>
+                                            @if($data->admin_set_quantity == ISSUE_FULL_QUANTITY)
+                                            <input type="hidden" name="check_quantity" value="IFQ">
+                                            @elseif($data->admin_set_quantity == ISSUE_PARTIAL_QUANTITY)
+                                            <input type="hidden" name="check_quantity" value="IPQ">
+                                            @elseif($data->admin_set_quantity == ISSUE_BALANCE_QUANTITY)
+                                            <input type="hidden" name="check_quantity" value="IBQ">
+                                            @endif
                                         </div>
-                                        <div class="col-4 partialQuantityShow" style="display: none">
-                                            <label>Product Name</label>
-                                            <input type="text" name="partial_quantity" class="form-control" placeholder="quantity">
-                                        </div>
+                                        @if($data->admin_set_quantity == ISSUE_PARTIAL_QUANTITY)
+                                            <div class="col-4 partialQuantityShow">
+                                                <label>Product Name</label>
+                                                <input type="text" name="partial_quantity" class="form-control" placeholder="quantity">
+                                            </div>
+                                        @endif
                                         <div class="col-4">
                                             <label>Vehicle</label>
                                             <select class="form-select" name="vehicle_id" id="">
@@ -66,15 +75,15 @@
         </div>
     </section>
 @endsection
-@push('post_scripts')
-    <script type="text/javascript">
-        $(document).on('change','#checkQuantity',function (){
-            let partial_check = $(this).val();
-            if(partial_check === 'IPQ'){
-                $('.partialQuantityShow').show();
-            }else{
-                $('.partialQuantityShow').hide();
-            }
-        })
-    </script>
-@endpush
+{{--@push('post_scripts')--}}
+{{--    <script type="text/javascript">--}}
+{{--        $(document).on('change','#checkQuantity',function (){--}}
+{{--            let partial_check = $(this).val();--}}
+{{--            if(partial_check === 'IPQ'){--}}
+{{--                $('.partialQuantityShow').show();--}}
+{{--            }else{--}}
+{{--                $('.partialQuantityShow').hide();--}}
+{{--            }--}}
+{{--        })--}}
+{{--    </script>--}}
+{{--@endpush--}}
