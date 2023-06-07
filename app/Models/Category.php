@@ -11,5 +11,8 @@ class Category extends Model
     protected $fillable = [
         'name','slug','status'
     ];
+    public function categorywiseuser(){
+        return $this->belongsToMany(User::class,'categories_wise_user');
+    }
 
 }

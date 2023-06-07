@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CategoryTableSeeder extends Seeder
 {
@@ -17,6 +18,9 @@ class CategoryTableSeeder extends Seeder
             'name'=>'Packaging Materials',
             'slug'=>$this->slugify('Packaging Materials')
         ]);
+        DB::table('categories_wise_user')->insert(
+            array('category_id' =>  1,'user_id' => 1 )
+        );
 
     }
     public function slugify($text){
