@@ -3,6 +3,7 @@
 const PENDING_PRODUCT=   0;
 const REJECTED_PRODUCT = 1;
 const APPROVED_PRODUCT = 2;
+const ON_THE_WAY = 3;
 
 
 const ISSUE_FULL_QUANTITY  =   1;

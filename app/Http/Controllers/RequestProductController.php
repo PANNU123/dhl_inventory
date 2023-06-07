@@ -7,8 +7,10 @@ use App\Models\RequestProduct;
 use App\Models\Route;
 use App\Models\Vehicle;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
@@ -18,54 +20,17 @@ class RequestProductController extends Controller
     public function requestProduct(Request $request)
     {
         if ($request->ajax()) {
-            $data = RequestProduct::with('product','route')->where('status',0)->latest()->get();
+            $data = RequestProduct::with('product','route')->latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     if($data->status == 0) {
-                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Approved</a>';
+                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">View</a>';
+                    }else{
+                        $btn = '<a href="javascript:void(0)" class="btn btn-dark btn-sm">Approved</a>';
                     }
-//                    $btn =$btn.'<a href="'.route('backend.sub.category.delete',$data->id).'" class="btn btn-danger btn-sm ml-2">Delete</a>';
-//                    if($data->status == 1){
-//                        $btn ='<a href="'.route('backend.sub.category.status.inactive',$data->id).'"class="btn btn-warning btn-sm ml-2">Rejected</a>';
-//                    }else{
-//                        $btn ='<a href="'.route('backend.sub.category.status.active',$data->id).'" class="btn btn-success btn-sm ml-2">Approved</a>';
-//                    }
                     return $btn;
                 })
-
-                ->editColumn('Product_Name', function ($data) {
-                    return $data->product->name;
-                })
-                ->editColumn('Route_Name', function ($data) {
-                    return $data->route->name;
-                })
-                ->editColumn('Quantity', function ($data) {
-                    return $data->quantity;
-                })
-                ->editColumn('Status', function ($data) {
-                    if($data->status == 1){
-                        return '<span class="badge bg-success">Active</span>';
-                    }else{
-                        return '<span class="badge bg-warning">InActive</span>';
-                    }
-                })
-                ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
-                ->make(true);
-        }
-        return view('pages.request_product.index');
-    }
-
-    public function commercialRequestProduct(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = RequestProduct::with('product','route')->where('user_id',Auth::id())->latest()->get();
-            return DataTables::of($data)
-                ->addIndexColumn()
-//                ->addColumn('action', function ($data) {
-//                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Received</a>';
-//                    return $btn;
-//                })
 
                 ->editColumn('Product_Name', function ($data) {
                     return $data->product->name;
@@ -87,8 +52,58 @@ class RequestProductController extends Controller
                     {
                         return '<span class="badge bg-success">Approved</span>';
                     }
+                    if ($data->status == ON_THE_WAY)
+                    {
+                        return '<span class="badge bg-success">On the Way</span>';
+                    }
                 })
-                ->rawColumns(['Product_Name','Route_Name','Quantity','Status'])
+                ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
+                ->make(true);
+        }
+        return view('pages.request_product.index');
+    }
+
+    public function commercialRequestProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = RequestProduct::with('product','route')->where('user_id',Auth::id())->latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    if($data->status == ON_THE_WAY){
+                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Received</a>';
+                    }else{
+                        $btn = '<a href="javascript:void(0)" class="btn btn-dark btn-sm" disabled>-</a>';
+                    }
+                    return $btn;
+                })
+
+                ->editColumn('Product_Name', function ($data) {
+                    return $data->product->name;
+                })
+                ->editColumn('Route_Name', function ($data) {
+                    return $data->route->name;
+                })
+                ->editColumn('Quantity', function ($data) {
+                    return $data->quantity;
+                })
+                ->editColumn('Status', function ($data) {
+                    if($data->status == PENDING_PRODUCT){
+                        return '<span class="badge bg-warning">Pending</span>';
+                    }
+                    if($data->status == REJECTED_PRODUCT){
+                        return '<span class="badge bg-danger">Rejected</span>';
+                    }
+                    if ($data->status == APPROVED_PRODUCT)
+                    {
+                        return '<span class="badge bg-success">Approved</span>';
+                    }
+                    if ($data->status == ON_THE_WAY)
+                    {
+                        return '<span class="badge bg-success">On the Way</span>';
+                    }
+                })
+                ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
                 ->make(true);
         }
         return view('pages.request_product.commercial_index');
@@ -98,13 +113,17 @@ class RequestProductController extends Controller
     {
 //        return $data = RequestProduct::with('product','route')->where('status',0)->latest()->get();
         if ($request->ajax()) {
-            $data = RequestProduct::with('product','route')->where('status',1)->latest()->get();
+            $data = RequestProduct::with('product','route')->latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    if ($data->status == 1)
-                    {
+                    if ($data->status == APPROVED_PRODUCT){
                         $btn = '<a href="' . route('backend.request.product.qty.check', $data->id) . '" class="btn btn-success btn-sm">View</a>';
+                    }
+                    elseif($data->status == PENDING_PRODUCT){
+                        $btn = '<a href="javascript:void(0)" class="btn btn-danger btn-sm">Not Approved</a>';
+                    }else{
+                        $btn = '<a href="javascript:void(0)" class="btn btn-dark btn-sm">-</a>';
                     }
                     return $btn;
                 })
@@ -118,10 +137,14 @@ class RequestProductController extends Controller
                     return $data->quantity;
                 })
                 ->editColumn('Status', function ($data) {
-                    if($data->status == 1){
-                        return '<span class="badge bg-success">Active</span>';
-                    }else{
-                        return '<span class="badge bg-warning">InActive</span>';
+                    if($data->status == APPROVED_PRODUCT){
+                        return '<span class="badge bg-success">Approved</span>';
+                    }elseif($data->status == REJECTED_PRODUCT){
+                        return '<span class="badge bg-danger">Rejected</span>';
+                    }elseif($data->status == ON_THE_WAY){
+                        return '<span class="badge bg-warning">On the Way</span>';
+                    }elseif($data->status == PENDING_PRODUCT){
+                        return '<span class="badge bg-danger">Not Approved</span>';
                     }
                 })
                 ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
@@ -149,10 +172,24 @@ class RequestProductController extends Controller
     }
 
     public function requestProductActive($id){
-        RequestProduct::where('id',$id)->update([
-            'status'=>2
+        $data = RequestProduct::with('product','route','user')->where('id',$id)->first();
+        $vehicles = Vehicle::get();
+        $category_wise_user =  DB::table('categories_wise_user')->where('category_id',$data->product->category_id)->where('user_id',Auth::id())->first();
+        if($category_wise_user){
+            return view('pages.request_product.approved_request_product',compact('data','vehicles'));
+        }else{
+            Toastr::error('', 'You have no permissions this product category', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
+        }
+    }
+    public function requestProductApprovedOrRejected(Request $request){
+        $update = RequestProduct::where('id',$request->id)->update([
+            'admin_set_quantity'=>$request->admin_set_quantity,
+            'status'=>APPROVED_PRODUCT,
         ]);
-        return redirect()->back();
+        if($update){
+            return redirect()->route('backend.request.product');
+        }
     }
     public function requestProductQtyCheck($id)
     {
@@ -162,6 +199,7 @@ class RequestProductController extends Controller
     }
     public function requestProductPreview(Request $request)
     {
+
         $vehicle = Vehicle::where('id',$request->vehicle_id)->first();
         $user = User::where('id',$vehicle->user_id)->first();
 
@@ -173,7 +211,7 @@ class RequestProductController extends Controller
             $request_product->update([
                 'issue_full_quantity'=>$request->request_quantity,
                 'quantity'=> 0,
-                'status' => 2,
+                'status' => ON_THE_WAY,
             ]);
             if($product){
                 $product->update([
@@ -195,7 +233,7 @@ class RequestProductController extends Controller
             RequestProduct::where('id',$request->id)->update([
                 'issue_partial_quantity' => $request->partial_quantity,
                 'issue_balance_quantity' =>  $request->request_quantity - $request->partial_quantity,
-                'status' => 2,
+                'status' => ON_THE_WAY,
             ]);
             if($product && $request_product){
                 $request_product->update([
@@ -219,7 +257,7 @@ class RequestProductController extends Controller
             RequestProduct::where('id',$request->id)->update([
                 'quantity'=>0,
                 'issue_balance_quantity' =>  $request->request_quantity,
-                'status' => 2,
+                'status' => ON_THE_WAY,
             ]);
             return redirect()->back();
         }
