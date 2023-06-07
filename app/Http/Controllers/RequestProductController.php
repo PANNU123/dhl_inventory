@@ -8,6 +8,7 @@ use App\Models\Route;
 use App\Models\Vehicle;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,6 @@ class RequestProductController extends Controller
 {
     public function requestProduct(Request $request)
     {
-//        return $data = RequestProduct::with('product','route')->where('status',0)->latest()->get();
         if ($request->ajax()) {
             $data = RequestProduct::with('product','route')->where('status',0)->latest()->get();
             return DataTables::of($data)
@@ -59,15 +59,13 @@ class RequestProductController extends Controller
     public function commercialRequestProduct(Request $request)
     {
         if ($request->ajax()) {
-            $data = RequestProduct::with('product','route')->latest()->get();
+            $data = RequestProduct::with('product','route')->where('user_id',Auth::id())->latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    if($data->status == 2) {
-                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Received</a>';
-                    }
-                    return $btn;
-                })
+//                ->addColumn('action', function ($data) {
+//                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Received</a>';
+//                    return $btn;
+//                })
 
                 ->editColumn('Product_Name', function ($data) {
                     return $data->product->name;
@@ -79,18 +77,18 @@ class RequestProductController extends Controller
                     return $data->quantity;
                 })
                 ->editColumn('Status', function ($data) {
-                    if($data->status == 0){
+                    if($data->status == PENDING_PRODUCT){
                         return '<span class="badge bg-warning">Pending</span>';
                     }
-                    elseif ($data->status == 1)
+                    if($data->status == REJECTED_PRODUCT){
+                        return '<span class="badge bg-danger">Rejected</span>';
+                    }
+                    if ($data->status == APPROVED_PRODUCT)
                     {
                         return '<span class="badge bg-success">Approved</span>';
                     }
-                    elseif($data->status == 2){
-                        return '<span class="badge bg-success">On The Way</span>';
-                    }
                 })
-                ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
+                ->rawColumns(['Product_Name','Route_Name','Quantity','Status'])
                 ->make(true);
         }
         return view('pages.request_product.commercial_index');
@@ -145,13 +143,14 @@ class RequestProductController extends Controller
             'product_id' => $request->product_id,
             'route_id' => $request->route_id,
             'quantity' => $request->quantity,
+            'user_id' => Auth::id(),
         ]);
         return redirect()->route('backend.request.product.create');
     }
 
     public function requestProductActive($id){
         RequestProduct::where('id',$id)->update([
-            'status'=>1
+            'status'=>2
         ]);
         return redirect()->back();
     }

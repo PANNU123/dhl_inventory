@@ -31,7 +31,7 @@
                                     <th>Route Name</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+{{--                                    <th>Action</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -80,11 +80,11 @@
                         data: 'Status',
                         name: 'Status'
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false
-                    }
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false
+                    // }
                 ]
             });
         });

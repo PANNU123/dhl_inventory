@@ -17,14 +17,15 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('route_id')->index()->nullable();
             $table->foreign('route_id')->references('id')->on('routes')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('quantity');
             $table->integer('issue_full_quantity')->nullable();
             $table->integer('issue_partial_quantity')->nullable();
             $table->integer('issue_balance_quantity')->nullable();
-            $table->string('vehicle_id')->nullable();
+            $table->integer('issue_product_quantity')->nullable();
+            $table->integer('vehicle_id')->nullable();
             $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('approved')->default(0);
-            $table->tinyInteger('rejected')->default(0);
             $table->timestamps();
         });
     }

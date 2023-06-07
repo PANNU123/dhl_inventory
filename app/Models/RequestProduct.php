@@ -9,7 +9,7 @@ class RequestProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'product_id','route_id','quantity','issue_full_quantity','issue_partial_quantity','issue_balance_quantity',
+        'user_id','product_id','route_id','quantity','issue_full_quantity','issue_partial_quantity','issue_balance_quantity',
         'status'
     ];
     public function product(){

@@ -63,4 +63,9 @@ class User extends Authenticatable
         }
         return $hasPermission;
     }
+
+    public function requestproduct()
+    {
+        return $this->hasMany(RequestProduct::class,'user_id');
+    }
 }
