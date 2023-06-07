@@ -28,6 +28,7 @@
                 <thead>
                 <tr>
                   <th>Name</th>
+                  <th>Code</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -65,6 +66,10 @@
             {
                 data: 'Name',
                 name: 'Name'
+            },
+            {
+                data: 'Code',
+                name: 'Code'
             },
             {
                 data: 'Status',

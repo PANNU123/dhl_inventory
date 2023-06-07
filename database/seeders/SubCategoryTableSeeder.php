@@ -2,23 +2,39 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategoryTableSeeder extends Seeder
+class SubCategoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Category::create([
-            'name'=>'Packaging Materials',
-            'slug'=>$this->slugify('Packaging Materials')
+        SubCategory::create([
+            'category_id' => 1,
+            'name' => 'Carton',
+            'slug'=>$this->slugify('Carton'),
         ]);
-
+        SubCategory::create([
+            'category_id' => 1,
+            'name' => 'Flyer',
+            'slug'=>$this->slugify('Flyer'),
+        ]);
+        SubCategory::create([
+            'category_id' => 1,
+            'name' => 'Tape',
+            'slug'=>$this->slugify('Tape'),
+        ]);
+        SubCategory::create([
+            'category_id' => 1,
+            'name' => 'Poly',
+            'slug'=>$this->slugify('Poly'),
+        ]);
     }
+
     public function slugify($text){
         // replace non letter or digits by divider
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);

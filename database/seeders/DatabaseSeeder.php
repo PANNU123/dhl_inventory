@@ -19,5 +19,8 @@ class DatabaseSeeder extends Seeder
        $this->call(UomTableSeeder::class);
        $this->call(RouteTableSeeder::class);
        $this->call(VendorTableSeeder::class);
+       $this->call(SubCategoryTableSeeder::class);
+       $this->call(ProductTableSeeder::class);
+
     }
 }

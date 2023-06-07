@@ -28,6 +28,9 @@ class RouteController extends Controller
                 ->editColumn('Name', function ($data) {
                     return $data->name;
                 })
+                ->editColumn('Code', function ($data) {
+                    return $data->code;
+                })
                 ->editColumn('Status', function ($data) {
                     if($data->status == 1){
                         return '<span class="badge bg-success">Active</span>';
@@ -35,7 +38,7 @@ class RouteController extends Controller
                         return '<span class="badge bg-warning">InActive</span>';
                     }
                 })
-                ->rawColumns(['action','Name','Status'])
+                ->rawColumns(['action','Name','Code','Status'])
                 ->make(true);
         }
         return view('pages.route.index');
@@ -46,6 +49,7 @@ class RouteController extends Controller
     public function routeStore(Request $request){
         Route::create([
             'name'=>$request->name,
+            'code'=>$request->code,
             'slug'=>$this->slugify($request->name),
         ]);
         Toastr::success('', 'Route Added Successfully', ["positionClass" => "toast-top-right"]);
@@ -58,6 +62,7 @@ class RouteController extends Controller
     public function routeUpdate(Request $request){
         Route::where('id',$request->id)->update([
             'name'=>$request->name,
+            'code'=>$request->code,
             'slug'=>$this->slugify($request->name),
         ]);
         Toastr::success('', 'Route Update Successfully', ["positionClass" => "toast-top-right"]);
