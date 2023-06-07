@@ -7,7 +7,7 @@
         <!-- left column -->
         <div class="col-md-12">
           <!-- general form elements -->
-          <div class="card card-primary">
+          <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Quick Example</h3>
             </div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="card-body">
                     <div class="row">
                         @php $i = 1; @endphp
@@ -64,9 +64,9 @@
                     </div>
                 </div>
 
-                
+
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
               </div>
             </form>
           </div>

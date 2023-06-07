@@ -8,7 +8,7 @@
         <!-- left column -->
         <div class="col-md-8 offset-2">
           <!-- general form elements -->
-          <div class="card card-primary">
+          <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Category</h3>
             </div>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
               </div>
             </form>
           </div>

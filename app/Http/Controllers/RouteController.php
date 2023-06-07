@@ -16,12 +16,12 @@ class RouteController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<a href="'.route('backend.route.edit',$data->id).'" class="btn btn-primary btn-sm">Edit</a>';
-                    $btn =$btn.'<a href="'.route('backend.route.delete',$data->id).'" class="btn btn-danger btn-sm ml-2">Delete</a>';
+                    $btn = '<a href="'.route('backend.route.edit',$data->id).'" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
+                    $btn =$btn.'<a href="'.route('backend.route.delete',$data->id).'" class="btn btn-danger btn-sm ml-2"><i class="fas fa-trash"></i></a>';
                     if($data->status == 1){
-                        $btn =$btn.'<a href="'.route('backend.route.status.inactive',$data->id).'"class="btn btn-warning btn-sm ml-2">Inactive</a>';
+                        $btn =$btn.'<a href="'.route('backend.route.status.inactive',$data->id).'"class="btn btn-warning btn-sm ml-2"><i style="color: white" class="fas fa-arrow-down"></i></a>';
                     }else{
-                        $btn =$btn.'<a href="'.route('backend.route.status.active',$data->id).'" class="btn btn-success btn-sm ml-2">Active</a>';
+                        $btn =$btn.'<a href="'.route('backend.route.status.active',$data->id).'" class="btn btn-success btn-sm ml-2"><i style="color: white" class="fas fa-arrow-up"></i></a>';
                     }
                     return $btn;
                 })

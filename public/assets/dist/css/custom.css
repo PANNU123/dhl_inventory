@@ -1,0 +1,12 @@
+.nav-treeview>.nav-item>.nav-link.active{
+    background-color:  #ffc20c !important;
+}
+.nav-sidebar .nav-link p{
+    color: white !important;
+}
+.nav-sidebar .nav-treeview>.nav-item>.nav-link>.nav-icon{
+    color: white !important;
+}
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #dc3545 !important;
+}

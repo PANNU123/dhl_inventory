@@ -9,7 +9,7 @@
                     <a type="button">-</a>
                 </div>
                 <div class="col-2">
-                    <a href="{{route('backend.sub.category.create')}}" class="btn btn-block btn-success">Add New</a>
+                    <a href="{{route('backend.sub.category.create')}}" class="btn btn-block btn-danger">Add New</a>
                 </div>
             </div>
         </div>

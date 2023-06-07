@@ -8,7 +8,7 @@
         <!-- left column -->
         <div class="col-md-12">
           <!-- general form elements -->
-          <div class="card card-primary">
+          <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Category</h3>
             </div>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
@@ -70,12 +70,12 @@
                         <div class="col-12">
                             <textarea type="text" name="description" class="form-control" placeholder="Description">{!! $edit->description !!}</textarea>
                         </div>
-                        
+
                     </div>
                 </div>
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
               </div>
             </form>
           </div>

@@ -18,7 +18,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-danger">
     <div class="card-header text-center">
       {{-- <a href="{{ route('login') }}" class="h1"><b></a> --}}
       <a href="{{ route('login') }}" class="brand-link">
@@ -46,7 +46,7 @@
           </div>
         </div>
       <div class="social-auth-links text-center mt-2 mb-3">
-        <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-block btn-danger">Sign in</button>
       </div>
     </form>
     </div>

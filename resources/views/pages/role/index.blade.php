@@ -8,7 +8,7 @@
           <a type="button">-</a>
         </div>
         <div class="col-2">
-          <a href="{{route('backend.create.role')}}" class="btn btn-block btn-success">Add New</a>
+          <a href="{{route('backend.create.role')}}" class="btn btn-block btn-danger">Add New</a>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
                                 <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="{{route('backend.edit.role',$item->id)}}">Edit</a>
                                 <a class="dropdown-item" href="{{route('backend.delete.role',$item->id)}}">Delete</a>
-                            </div>        
+                            </div>
                         </div>
                     </td>
                   </tr>
