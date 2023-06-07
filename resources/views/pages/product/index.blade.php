@@ -7,7 +7,7 @@
       <div class="col-2">
         <a type="button">-</a>
       </div>
-      <div class="col-2">
+      <div class="col-1">
         <a href="{{route('backend.product.create')}}" class="btn btn-block btn-danger">Add New</a>
       </div>
     </div>

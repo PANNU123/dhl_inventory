@@ -85,7 +85,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{Route::is('backend.request.product.commercial*') || Route::is('backend.request.product*') || Route::is('backend.request.product.approved*')  ? "menu-open" : ""}}">
+            <li class="nav-item {{Route::is('backend.request.product*')  ? "menu-open" : ""}}">
                 <a href="#" class="nav-link {{Route::is('backend.request.product.commercial*') || Route::is('backend.request.product*') || Route::is('backend.request.product.approved*')  ? "active" : ""}}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
@@ -95,7 +95,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('backend.request.product.commercial')}}" class="nav-link {{Route::is('backend.request.product.commercial*') ? "active" : ""}}">
+                        <a href="{{route('backend.request.product.commercial')}}" class="nav-link {{Route::is('backend.request.product.commercial*') || Route::is('backend.request.product.create*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Commercial
@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('backend.request.product')}}" class="nav-link {{Route::is('backend.request.product') ? "active" : ""}}">
+                        <a href="{{route('backend.request.product')}}" class="nav-link {{Route::is('backend.request.product') || Route::is('backend.request.product.status.active*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Product Review
@@ -111,7 +111,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('backend.request.product.approved')}}" class="nav-link {{Route::is('backend.request.product.approved*') ? "active" : ""}}">
+                        <a href="{{route('backend.request.product.approved')}}" class="nav-link {{Route::is('backend.request.product.approved*') || Route::is('backend.request.product.qty.check*') ? "active" : ""}}">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                Approved Product

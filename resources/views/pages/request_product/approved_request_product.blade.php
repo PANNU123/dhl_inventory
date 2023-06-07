@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{route('backend.dashboard')}}" class="btn btn-danger">Rejected</a>
+                                <a href="{{route('backend.request.product.rejected',['id'=>$data->id])}}" class="btn btn-danger">Rejected</a>
                                 <button type="submit" class="btn btn-success float-right">Approved</button>
                             </div>
                         </form>

@@ -7,8 +7,8 @@
         <div class="col-2">
           <a type="button">-</a>
         </div>
-        <div class="col-2">
-          <a href="{{route('backend.create.admin')}}" class="btn btn-block btn-success">Add New</a>
+        <div class="col-1">
+          <a href="{{route('backend.create.admin')}}" class="btn btn-block btn-danger">Add New</a>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
                   <tr>
                     <td>{{$item->full_name}}</td>
                     <td>{{$item->email}}</td>
-                   
+
                     <td>
                         <div class="margin">
                             <div class="btn-group">
@@ -59,7 +59,7 @@
                                 <div class="dropdown-menu" role="menu">
                                 <a class="dropdown-item" href="{{route('backend.edit.admin',$item->id)}}">Edit</a>
                                 <a class="dropdown-item" href="{{route('backend.delete.admin',$item->id)}}">Delete</a>
-                            </div>        
+                            </div>
                         </div>
                     </td>
                   </tr>

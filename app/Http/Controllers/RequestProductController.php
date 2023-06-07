@@ -25,9 +25,12 @@ class RequestProductController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     if($data->status == 0) {
-                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">View</a>';
-                    }else{
-                        $btn = '<a href="javascript:void(0)" class="btn btn-dark btn-sm">Approved</a>';
+                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-primary btn-sm">View</a>';
+                    }elseif($data->status == 1){
+                        $btn = '<a href="javascript:void(0)" class="btn btn-danger btn-sm">Rejected</a>';
+                    }
+                    else{
+                        $btn = '<a href="javascript:void(0)" class="btn btn-success btn-sm">Approved</a>';
                     }
                     return $btn;
                 })
@@ -122,7 +125,11 @@ class RequestProductController extends Controller
                     }
                     elseif($data->status == PENDING_PRODUCT){
                         $btn = '<a href="javascript:void(0)" class="btn btn-danger btn-sm">Not Approved</a>';
-                    }else{
+                    }
+                    elseif($data->status == REJECTED_PRODUCT){
+                        $btn = '<a href="javascript:void(0)" class="btn btn-danger btn-sm">Not Approved</a>';
+                    }
+                    else{
                         $btn = '<a href="javascript:void(0)" class="btn btn-dark btn-sm">-</a>';
                     }
                     return $btn;
@@ -186,6 +193,14 @@ class RequestProductController extends Controller
         $update = RequestProduct::where('id',$request->id)->update([
             'admin_set_quantity'=>$request->admin_set_quantity,
             'status'=>APPROVED_PRODUCT,
+        ]);
+        if($update){
+            return redirect()->route('backend.request.product');
+        }
+    }
+    public function requestProductRejected($id){
+        $update = RequestProduct::where('id',$id)->update([
+            'status'=>REJECTED_PRODUCT,
         ]);
         if($update){
             return redirect()->route('backend.request.product');
