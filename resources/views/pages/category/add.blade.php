@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row">
         <!-- left column -->
-        <div class="col-md-8 offset-2">
+        <div class="col-md-12">
           <!-- general form elements -->
           <div class="card card-danger">
             <div class="card-header">
@@ -20,9 +20,9 @@
                             <input type="text" name="name" class="form-control" placeholder="Category Name">
                         </div>
                         <div class="col-6">
-                            <select name="roles[]" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                @foreach($users as $item)
-                                    <option value="{{$item->id}}">{{$item->full_name}}</option>
+                            <select name="users[]" class="select2" multiple="multiple" data-placeholder="Select a user" style="width: 100%;">
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->full_name}}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -45,22 +46,33 @@ class CategoryController extends Controller
         return view('pages.category.add',compact('users'));
     }
     public function categoryStore(Request $request){
-        Category::create([
+        $category = Category::create([
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        if($category){
+            $user_id = $request->users;
+            $category->categorywiseuser()->sync($user_id);
+        }
         Toastr::success('', 'Category Added Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.category');
     }
     public function categoryEdit($id){
+        $users = User::get();
         $edit = Category::where('id',$id)->first();
-        return view('pages.category.edit',compact('edit'));
+        return view('pages.category.edit',compact('edit','users'));
     }
     public function categoryUpdate(Request $request){
+        $category = Category::where('id',$request->id)->first();
         Category::where('id',$request->id)->update([
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
         ]);
+        if($category){
+            DB::table('categories_wise_user')->where('category_id', $category->id)->delete();
+            $user_id = $request->users;
+            $category->categorywiseuser()->syncWithoutDetaching($user_id);
+        }
         Toastr::success('', 'Category Update Successfully', ["positionClass" => "toast-top-right"]);
         return redirect()->route('backend.category');
     }
