@@ -56,6 +56,46 @@ class RequestProductController extends Controller
         return view('pages.request_product.index');
     }
 
+    public function commercialRequestProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = RequestProduct::with('product','route')->latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    if($data->status == 2) {
+                        $btn = '<a href="' . route('backend.request.product.status.active', $data->id) . '" class="btn btn-success btn-sm">Received</a>';
+                    }
+                    return $btn;
+                })
+
+                ->editColumn('Product_Name', function ($data) {
+                    return $data->product->name;
+                })
+                ->editColumn('Route_Name', function ($data) {
+                    return $data->route->name;
+                })
+                ->editColumn('Quantity', function ($data) {
+                    return $data->quantity;
+                })
+                ->editColumn('Status', function ($data) {
+                    if($data->status == 0){
+                        return '<span class="badge bg-warning">Pending</span>';
+                    }
+                    elseif ($data->status == 1)
+                    {
+                        return '<span class="badge bg-success">Approved</span>';
+                    }
+                    elseif($data->status == 2){
+                        return '<span class="badge bg-success">On The Way</span>';
+                    }
+                })
+                ->rawColumns(['action','Product_Name','Route_Name','Quantity','Status'])
+                ->make(true);
+        }
+        return view('pages.request_product.commercial_index');
+    }
+
     public function requestProductApproved(Request $request)
     {
 //        return $data = RequestProduct::with('product','route')->where('status',0)->latest()->get();
@@ -134,12 +174,14 @@ class RequestProductController extends Controller
             $request_product->update([
                 'issue_full_quantity'=>$request->request_quantity,
                 'quantity'=> 0,
+                'status' => 2,
             ]);
             if($product){
                 $product->update([
                     'qty'=>$product->qty - $request->request_quantity
                 ]);
             }
+
             $data = [
                 'name' =>$user->full_name,
                 'subject' => 'Delivery Email',
@@ -153,7 +195,8 @@ class RequestProductController extends Controller
         if($request->check_quantity == 'IPQ'){
             RequestProduct::where('id',$request->id)->update([
                 'issue_partial_quantity' => $request->partial_quantity,
-                'issue_balance_quantity' =>  $request->request_quantity - $request->partial_quantity
+                'issue_balance_quantity' =>  $request->request_quantity - $request->partial_quantity,
+                'status' => 2,
             ]);
             if($product && $request_product){
                 $request_product->update([
@@ -176,7 +219,8 @@ class RequestProductController extends Controller
         if($request->check_quantity == 'IBQ'){
             RequestProduct::where('id',$request->id)->update([
                 'quantity'=>0,
-                'issue_balance_quantity' =>  $request->request_quantity
+                'issue_balance_quantity' =>  $request->request_quantity,
+                'status' => 2,
             ]);
             return redirect()->back();
         }

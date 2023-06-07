@@ -45,7 +45,6 @@ class CategoryController extends Controller
         return view('pages.category.add',compact('users'));
     }
     public function categoryStore(Request $request){
-        return $request->all();
         Category::create([
             'name'=>$request->name,
             'slug'=>$this->slugify($request->name),
